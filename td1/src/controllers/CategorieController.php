@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use src\models\Categorie as Categorie;
+use src\models\Ingredient as Ingredient;
 
 class CategorieController extends AbstractController{
 
@@ -22,6 +23,11 @@ class CategorieController extends AbstractController{
                 "categories" => $categories
               ];
     return $chaine;
+  }
+
+  static public function ingredientsByCategorie($id){
+    $ingredients = Ingredient::where("cat_id", $id)->get();
+    return $ingredients;
   }
 
 }

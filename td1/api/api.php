@@ -21,4 +21,14 @@ $app->get(
   }
 );
 
+$app->get(
+  "/categories/{id}",
+  function(Request $req, Response $resp, $args){
+    $id = $args['id'];
+    $chaine = CategorieController::ingredientsByCategorie($id);
+    $resp->getBody()->write(json_encode($chaine));
+    return $resp;
+  }
+);
+
 $app->run();
