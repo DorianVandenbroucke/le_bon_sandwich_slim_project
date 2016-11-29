@@ -22,17 +22,22 @@ class CategorieController extends AbstractController{
   }
 
   static public function ingredientsByCategorie($id){
+    $categorie = Categorie::findOrFail($id);
     $nb_categories = Categorie::count();
     $ingredients = Ingredient::where("cat_id", $id)->get();
-    if(!isset($ingredients[0])){
-      http_response_code(404);
-      return "Identifiant de categorie inconnu.";
-    }
     $chaine = [
                 "nombre de categorie" => $nb_categories,
                 "ingredients" => $ingredients
               ];
     return $chaine;
+  }
+
+  static public function addCategorie(){
+    $categorie = new Categorie();
+    $categorie->nom = filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
+    $categorie->description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+    $categorie->save();
+    return $categorie;
   }
 
 }
