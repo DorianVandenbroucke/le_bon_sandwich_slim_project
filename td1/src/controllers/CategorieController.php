@@ -16,18 +16,19 @@ class CategorieController extends AbstractController{
   }
 
   static public function listCategories(){
-    $nb_categories = Categorie::count();
     $categories = Categorie::select("id", "nom")->get();
-    $chaine = [
-                "nb" => $nb_categories,
-                "categories" => $categories
-              ];
+    $chaine = ["categories" => $categories];
     return $chaine;
   }
 
   static public function ingredientsByCategorie($id){
+    $nb_categories = Categorie::count();
     $ingredients = Ingredient::where("cat_id", $id)->get();
-    return $ingredients;
+    $chaine = [
+                "nombre de categorie" => $nb_categories,
+                "ingredients" => $ingredients
+              ];
+    return $chaine;
   }
 
 }
