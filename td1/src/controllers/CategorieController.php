@@ -24,6 +24,10 @@ class CategorieController extends AbstractController{
   static public function ingredientsByCategorie($id){
     $nb_categories = Categorie::count();
     $ingredients = Ingredient::where("cat_id", $id)->get();
+    if(!isset($ingredients[0])){
+      http_response_code(404);
+      return "Identifiant de categorie inconnu.";
+    }
     $chaine = [
                 "nombre de categorie" => $nb_categories,
                 "ingredients" => $ingredients
